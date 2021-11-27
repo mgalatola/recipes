@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  recipe_type: 
+  user: one
+  difficulty_level: 
+  description: MyText
+  nationality: MyString
+
+two:
+  name: MyString
+  recipe_type: 
+  user: two
+  difficulty_level: 
+  description: MyText
+  nationality: MyString

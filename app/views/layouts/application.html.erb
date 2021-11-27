@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Recipes</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <% if user_signed_in? %>
+      <%= link_to "Log Out (#{current_user.email})", destroy_user_session_path, method: :delete %>
+    <% else %>
+      <%= link_to "Log In", new_user_session_path %>
+    <% end %>
+
+    <%= link_to 'Recipes', recipes_path %>
+    <% if can? :my, Recipe %>
+      <%= link_to 'My recipes', my_recipes_path %>
+    <% end %>
+    <% if can? :index, Ingredient %>
+      <%= link_to 'Ingredients', ingredients_path %>
+    <% end %>
+    <% if can? :manage, User %>
+      <%= link_to 'Users', admin_users_path %>
+    <% end %>
+
+    <hr/>
+
+    <p id="alert"><%= alert %></p>
+
+    <%= yield %>
+  </body>
+</html>

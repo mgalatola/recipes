@@ -1,0 +1,8 @@
+<div class="nested-fields recipe-ingredient-fields">
+  <div class="ingredient_from_list">
+    <%= f.select :ingredient_id, options_for_select(Ingredient.all.collect { |u| [u.to_s, u.id] }, f.object.ingredient_id) %>
+    <%= f.number_field :amount %>
+  </div>
+  <%#= link_to_add_association 'or create a new ingredient', f, :ingredient %>
+  <%= link_to_remove_association "remove ingredient", f %>
+</div>
