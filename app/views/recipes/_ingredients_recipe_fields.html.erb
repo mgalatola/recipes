@@ -1,7 +1,15 @@
-<div class="nested-fields recipe-ingredient-fields">
+<div class="nested-fields recipe-ingredient-fields" style="background-color: #EEEEEE; margin-bottom: 10px">
   <div class="ingredient_from_list">
-    <%= f.select :ingredient_id, options_for_select(Ingredient.all.collect { |u| [u.to_s, u.id] }, f.object.ingredient_id) %>
-    <%= f.number_field :amount %>
+    
+    <div class="field">
+      <%= f.label :ingredient_id %>
+      <%= f.select :ingredient_id, options_for_select(Ingredient.all.collect { |u| [u.to_s, u.id] }, f.object.ingredient_id), include_blank: true %>
+    </div>
+
+    <div class="field">
+      <%= f.label :amount %>
+      <%= f.number_field :amount %>
+    </div>
   </div>
   <%#= link_to_add_association 'or create a new ingredient', f, :ingredient %>
   <%= link_to_remove_association "remove ingredient", f %>

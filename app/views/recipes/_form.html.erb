@@ -18,12 +18,12 @@
 
   <div class="field">
     <%= form.label :recipe_type %>
-    <%= form.select :recipe_type, Recipe.recipe_types.keys %>
+    <%= form.select :recipe_type, Recipe.recipe_types.keys, include_blank: true %>
   </div>
 
   <div class="field">
     <%= form.label :difficulty_level %>
-    <%= form.select :difficulty_level, Recipe.difficulty_levels.keys %>
+    <%= form.select :difficulty_level, Recipe.difficulty_levels.keys, include_blank: true %>
   </div>
 
   <div class="field">
@@ -41,13 +41,17 @@
     <%= form.text_field :nationality %>
   </div>
 
+  <div class="field">
+    <%= form.label :ingredients %>
   <div id="ingredients">
   <%= form.fields_for :ingredients_recipes do |ingredients_recipe| %>
     <%= render 'ingredients_recipe_fields', :f => ingredients_recipe %>
   <% end %>
   <%= link_to_add_association 'add a ingredient recipe', form, :ingredients_recipes %>
+  </div>
+  </div>
 
-  <div class="actions">
+  <br/><div class="actions">
     <%= form.submit %>
   </div>
 <% end %>

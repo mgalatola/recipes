@@ -18,7 +18,19 @@ class RecipesController < ApplicationController
 
   # GET /recipes/new
   def new
-    @recipe = Recipe.new
+    if Ingredient.count == 0
+      if can? :manage, Ingredient
+        flash[:alert] = "Add ingredient first"
+
+        redirect_to ingredients_path
+      else
+        flash[:alert] = "No ingredients"
+
+        redirect_to root_path
+      end
+    else
+      @recipe = Recipe.new
+    end
   end
 
   # GET /recipes/1/edit
