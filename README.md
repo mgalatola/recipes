@@ -6,6 +6,8 @@ Rails 6.1.3
 Install
 
 git clone https://github.com/mgalatola/recipes.git
+bundle install
+npm install
 rake db:migrate
 rake db:seed
 
