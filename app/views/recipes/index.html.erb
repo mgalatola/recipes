@@ -2,6 +2,35 @@
 
 <h1>Recipes</h1>
 
+<fieldset><legend>Search</legend>
+  <%= form_tag recipes_path, method: :get do %>
+  <div class="row">
+    <div>
+    <%= label_tag 'Name' %>
+    <%= text_field_tag 'filter[name]', (params[:filter][:name] if params[:filter]) %>
+    </div>
+
+    <div>
+    <%= label_tag 'Recipe type' %>
+    <%= select_tag 'filter[recipe_type]', options_for_select(Recipe.recipe_types, (params[:filter] ? params[:filter][:recipe_type] : nil )), include_blank: true %>
+    </div>
+
+    <div>
+    <%= label_tag 'Recipe type' %>
+    <%= select_tag 'filter[ingredients]', options_for_select(Ingredient.all.map { |i| [i, i.id] }, (params[:filter] ? params[:filter][:ingredients] : nil )), multiple: true %>
+    </div>
+
+    <div>
+    <%= label_tag 'Difficulty level' %>
+    <%= select_tag 'filter[difficulty_level]', options_for_select(Recipe.difficulty_levels, (params[:filter] ? params[:filter][:difficulty_level] : nil )), include_blank: true %>
+    </div>
+  </div>
+
+    <br/><%= submit_tag 'Search' %>
+    <%= link_to 'Reset', recipes_path %>
+  <% end %>
+</fieldset><br/>
+
 <table>
   <thead>
     <tr>
@@ -10,6 +39,9 @@
       <th>Recipe type</th>
       <th>Ingredients</th>
       <th>Difficulty level</th>
+      <% if user_signed_in? and current_user.role.to_sym == :admin %>
+      <th>Calories</th>
+      <% end %>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -26,6 +58,9 @@
         <td><%= recipe.recipe_type %></td>
         <td><%= recipe.ingredients_recipes.map { |i| i.ingredient.name + " (#{i.amount})" }.join(", ") %></td>
         <td><%= recipe.difficulty_level %></td>
+        <% if user_signed_in? and current_user.role.to_sym == :admin %>
+        <td><%= recipe.ingredients_recipes.sum { |i| i.amount * i.ingredient.calories } %></td>
+        <% end %>
         <% if can? :manage, recipe %>
         <td><%= link_to 'Show', recipe %></td>
         <td><%= link_to 'Edit', edit_recipe_path(recipe) %></td>

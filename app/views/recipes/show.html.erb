@@ -12,7 +12,7 @@
 
 <p>
   <strong>User:</strong>
-  <%= @recipe.user_id %>
+  <%= @recipe.user %>
 </p>
 
 <p>
@@ -26,8 +26,20 @@
 </p>
 
 <p>
+  <strong>Picture:</strong>
+  <% if @recipe.picture.attachment %>
+    <%= image_tag @recipe.picture, width: 120 %>
+  <% end %>
+</p>
+
+<p>
   <strong>Nationality:</strong>
   <%= @recipe.nationality %>
+</p>
+
+<p>
+  <strong>Ingredients:</strong>
+  <%= @recipe.ingredients_recipes.map { |i| i.ingredient.name + " (#{i.amount})" }.join(", ") %>
 </p>
 
 <%= link_to 'Edit', edit_recipe_path(@recipe) %> |

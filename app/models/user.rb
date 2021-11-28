@@ -14,4 +14,8 @@ class User < ApplicationRecord
   enum role: { guest: 0, admin: 1 }
 
   enum sex: { m: 0, f: 1 }
+
+  def to_s
+    "#{first_name} #{last_name} (#{email})"
+  end
 end

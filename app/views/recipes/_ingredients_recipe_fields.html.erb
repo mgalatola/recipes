@@ -1,6 +1,6 @@
-<div class="nested-fields recipe-ingredient-fields" style="background-color: #EEEEEE; margin-bottom: 10px">
-  <div class="ingredient_from_list">
-    
+<div class="nested-fields recipe-ingredient-fields" style="background-color: #EEEEEE; margin-bottom: 10px; padding: 10px">
+  <div class="ingredient_from_list row">
+
     <div class="field">
       <%= f.label :ingredient_id %>
       <%= f.select :ingredient_id, options_for_select(Ingredient.all.collect { |u| [u.to_s, u.id] }, f.object.ingredient_id), include_blank: true %>

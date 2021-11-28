@@ -6,6 +6,13 @@ class RecipesController < ApplicationController
   # GET /recipes or /recipes.json
   def index
     @recipes = Recipe.all.includes(ingredients_recipes: [ :ingredient ])
+
+    if params[:filter]
+      @recipes = @recipes.where("name LIKE ?", "%#{params[:filter][:name]}%") if !params[:filter][:name].empty?
+      @recipes = @recipes.where(recipe_type: params[:filter][:recipe_type]) if !params[:filter][:recipe_type].empty?
+      @recipes = @recipes.where(ingredients_recipes: { ingredients: params[:filter][:ingredients] }) if !params[:filter][:ingredients].empty?
+      @recipes = @recipes.where(difficulty_level: params[:filter][:difficulty_level]) if !params[:filter][:difficulty_level].empty?
+    end
   end
 
   def my

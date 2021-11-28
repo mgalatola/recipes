@@ -11,6 +11,7 @@ class Ability
         can :manage, Recipe
         can :manage, Ingredient
         can :manage, User
+        cannot :destroy, User, role: User.roles[:admin]
       else
         can :manage, Recipe, :user_id => user.id
       end
